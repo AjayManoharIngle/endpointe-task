@@ -25,9 +25,9 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api")
-@Tag(name = "Employee Controller", description = "Employee management endpoints")
+@Tag(name = "Employee Controller version 1", description = "Employee management endpoints")
 @Slf4j
+@RequestMapping("/api/v1/employees")
 public class EmployeeController {
 	
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
@@ -38,40 +38,34 @@ public class EmployeeController {
 	@Autowired
 	private ValidationUtil validationUtil;
 
-	@PostMapping("/employees")
+	@PostMapping
 	public ResponseEntity<EmployeeDto> createEmployee(@RequestBody @Valid EmployeeDto employeeDto,BindingResult error) throws Exception{
-		logger.info("Entry into createEmployee");
 		validationUtil.validation(error);
 		return new ResponseEntity<>(employeeService.addEmployee(employeeDto),HttpStatus.OK);
 	}
 	
-	@PutMapping("/employees/{employeeId}")
+	@PutMapping("/{employeeId}")
 	public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long employeeId, @RequestBody @Valid EmployeeDto employeeDto,BindingResult error) throws Exception{
-		logger.info("Entry into updateEmployee");
 		validationUtil.validation(error);
 		return new ResponseEntity<>(employeeService.updateEmployee(employeeDto,employeeId),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/employees/{employeeId}")
+	@DeleteMapping("/{employeeId}")
 	public ResponseEntity<EmployeeDto> deleteEmployee(@PathVariable Long employeeId)  throws Exception{
-		logger.info("Entry into deleteEmployee");
 		employeeService.deleteEmployee(employeeId);
-		logger.info("Exit from deleteEmployee");
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/employees/{employeeId}")
+	@GetMapping("/{employeeId}")
 	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable Long employeeId)  throws Exception{
-		logger.info("Entry into getEmployee");
 		return new ResponseEntity<>(employeeService.getEmployee(employeeId),HttpStatus.OK);
 	}
 	
-	@GetMapping("/employees")
+	@GetMapping
 	public ResponseEntity<Page<EmployeeDto>> getAllEmployee(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size,
 			@RequestParam(defaultValue = "name") String sortBy,
 			@RequestParam(defaultValue = "asc") String sortDir)  throws Exception{
-		logger.info("Entry into getAllEmployee");
 		return new ResponseEntity<>(employeeService.getAllEmployee(page,size, sortBy, sortDir),HttpStatus.OK);
 	}
 }

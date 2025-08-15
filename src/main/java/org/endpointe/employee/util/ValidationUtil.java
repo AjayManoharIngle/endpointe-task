@@ -1,6 +1,5 @@
 package org.endpointe.employee.util;
 
-import org.endpointe.employee.controller.EmployeeController;
 import org.endpointe.employee.exception.EmployeeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,6 @@ public class ValidationUtil {
 	                .orElse("Invalid input");
 	            logger.info(errorMsg);
 	            throw new EmployeeException(errorMsg);
-	        }
+	      }
 	}
 }

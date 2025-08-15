@@ -33,7 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public EmployeeDto addEmployee(EmployeeDto e) throws Exception {
-		logger.info("Entry into addEmployee method");
 		Optional<Employee> emp = existsByEmail(e.getEmail());
 		if(emp.isPresent()) {
 			throw new EmployeeException("Email already exists");
@@ -43,29 +42,24 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public EmployeeDto updateEmployee(EmployeeDto employeeDto, Long employeeId) throws Exception {
-		logger.info("Entry into updateEmployee method");
 		Employee emp = getEmployeeById(employeeId);
 		return employeeMapper.toDto(employeeRespository.save(employeeMapper.toEntity(emp,employeeDto)));
 	}
 
 	@Override
 	public void deleteEmployee(Long employeeId) throws Exception {
-		logger.info("Entry into deleteEmployee method");
 		Employee emp = getEmployeeById(employeeId);
 		employeeRespository.delete(emp);
-		logger.info("Exit from deleteEmployee method");
-
+		logger.info("delete employee Id : " + employeeId);
 	}
 	
 	@Override
 	public EmployeeDto getEmployee(Long employeeId) throws Exception {
-		logger.info("Entry into getEmployee method");
 		return employeeMapper.toDto(getEmployeeById(employeeId));
 	}
 
 	@Override
 	public Page<EmployeeDto> getAllEmployee(int page, int size,String sortBy,String sortDir) {
-		logger.info("Entry into getAllEmployee method");
 	    Sort sort = sortDir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 		Pageable pages = PageRequest.of(page, size,sort);
 		return employeeMapper.toDtos(employeeRespository.findAll(pages));

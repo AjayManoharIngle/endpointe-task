@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "employees", uniqueConstraints = {@UniqueConstraint(columnNames = "S_EMAIL")})
+@Table(name = "TBL_EMPLOYEES_DETAILS", uniqueConstraints = {@UniqueConstraint(columnNames = "S_EMAIL")})
 public class Employee {
 
     @Id
