@@ -1,0 +1,13 @@
+1. crud operations 
+2. h2 database 
+3. AOP 
+4. exception handling and error saving only 500 and 400
+5. ap versioning
+6. Test case - Mockito
+-----------------------------------------
+
+7. JWT - with refresh token
+8. message properties
+9. exceptions msg not hardcoded
+10. global properties 
+11. allow multiple db 
